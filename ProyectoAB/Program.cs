@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using ProyectoAB.Data;
 using ProyectoAB.Models;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,37 @@ app.MapGet("/employees/{id:int}", async (int id, OfficeDb db) =>
         : Results.NotFound();
 });
 
+app.MapGet("/employees", async (OfficeDb db) => await db.Employees.ToListAsync());
+
+app.MapPut("/employees/{id:int}", async (int id, Employee e, OfficeDb db) =>
+{
+    if (e.Id != id)
+        return Results.BadRequest();
+
+    var employee = await db.Employees.FindAsync(id);
+
+    if (employee is null) return Results.NotFound();
+    employee.FristName = e.FristName;
+    employee.LastName = e.LastName;
+    employee.Branch = e.Branch;
+    employee.Age = e.Age;
+
+    await db.SaveChangesAsync();
+
+    return Results.Ok(employee);
+});
+
+app.MapDelete("/employees/{id:int}", async (int id, OfficeDb db) =>
+{
+    var employee = await db.Employees.FindAsync(id);
+    if (employee is null) return Results.NotFound();
+    
+     db.Employees.Remove(employee);
+     await db.SaveChangesAsync();
+
+    return Results.NoContent();
+
+});
 
 app.Run();
 
