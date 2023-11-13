@@ -13,9 +13,9 @@ namespace webproyectos.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(250)", nullable: false),
-                    FechaInicio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Fechafinalizacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(250)", nullable: false),
+                    FechaInicio = table.Column<string>(type: "varchar(max)", nullable: false),
+                    Fechafinalizacion = table.Column<string>(type: "varchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
