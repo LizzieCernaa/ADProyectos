@@ -66,9 +66,104 @@ app.MapDelete("/employees/{id:int}", async (int id, OfficeDb db) =>
 {
     var employee = await db.Employees.FindAsync(id);
     if (employee is null) return Results.NotFound();
-    
-     db.Employees.Remove(employee);
-     await db.SaveChangesAsync();
+
+    db.Employees.Remove(employee);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+
+});
+
+app.MapPost("/estado/", async (Estado e, OfficeDb db) =>
+{
+    db.Estados.Add(e);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/estado/{e}", e);
+});
+
+app.MapGet("/estado/{id:int}", async (int id, OfficeDb db) =>
+{
+    return await db.Estados.FindAsync(id)
+        is Estado e
+        ? Results.Ok(e)
+        : Results.NotFound();
+});
+
+app.MapGet("/estado", async (OfficeDb db) => await db.Estados.ToListAsync());
+
+app.MapPut("/estado/{id:int}", async (int id, Estado e, OfficeDb db) =>
+{
+    if (e.Id != id)
+        return Results.BadRequest();
+
+    var estado = await db.Estados.FindAsync(id);
+
+    if (estado is null) return Results.NotFound();
+    estado.Nombre = e.Nombre;
+    estado.Proyectos = e.Proyectos;
+    estado.Tareas = e.Tareas;
+
+    await db.SaveChangesAsync();
+
+    return Results.Ok(estado);
+});
+
+app.MapDelete("/estado/{id:int}", async (int id, OfficeDb db) =>
+{
+    var estado = await db.Estados.FindAsync(id);
+    if (estado is null) return Results.NotFound();
+
+    db.Estados.Remove(estado);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+
+});
+
+app.MapPost("/colaboradore/", async (Colaborador e, OfficeDb db) =>
+{
+    db.Colaboradores.Add(e);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/colaboradore/{e}", e);
+});
+
+app.MapGet("/colaboradore/{id:int}", async (int id, OfficeDb db) =>
+{
+    return await db.Colaboradores.FindAsync(id)
+        is Colaborador e
+        ? Results.Ok(e)
+        : Results.NotFound();
+});
+
+app.MapGet("/colaboradore", async (OfficeDb db) => await db.Colaboradores.ToListAsync());
+
+app.MapPut("/colaboradore/{id:int}", async (int id, Colaborador e, OfficeDb db) =>
+{
+    if (e.Id != id)
+        return Results.BadRequest();
+
+    var colaboradore = await db.Colaboradores.FindAsync(id);
+
+    if (colaboradore is null) return Results.NotFound();
+    colaboradore.Id= e.Id;
+    colaboradore.Nombres = e.Nombres;
+    colaboradore.Apellidos = e.Apellidos;
+    colaboradore.Correo = e.Correo;
+
+    await db.SaveChangesAsync();
+
+    return Results.Ok(colaboradore);
+});
+
+app.MapDelete("/colaboradore/{id:int}", async (int id, OfficeDb db) =>
+{
+    var colaboradore = await db.Colaboradores.FindAsync(id);
+    if (colaboradore is null) return Results.NotFound();
+
+    db.Colaboradores.Remove(colaboradore);
+    await db.SaveChangesAsync();
 
     return Results.NoContent();
 

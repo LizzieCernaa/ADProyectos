@@ -10,7 +10,7 @@ namespace ProyectoAB.Models
         public int? IdRole { get; set; }
         public int? IdColaborador { get; set; }
 
-        public virtual Colaboradore? IdColaboradorNavigation { get; set; }
+        public virtual Colaborador? IdColaboradorNavigation { get; set; }
         public virtual Proyecto? IdProyectoNavigation { get; set; }
         public virtual Role? IdRoleNavigation { get; set; }
     }

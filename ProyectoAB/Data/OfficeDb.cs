@@ -10,5 +10,8 @@ namespace ProyectoAB.Data
             
         }
         public DbSet<Employee> Employees => Set<Employee>();
+        public DbSet<Estado> Estados => Set<Estado>();
+
+        public DbSet<Colaborador> Colaboradores => Set<Colaborador>();
     }
 }

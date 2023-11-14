@@ -13,8 +13,8 @@ namespace ProyectoAB.Models
 
         public int Id { get; set; }
         public string? Nombre { get; set; }
-        public DateOnly? FechaInicio { get; set; }
-        public DateOnly? FechaFinalizacion { get; set; }
+        public DateOnly FechaInicio { get; set; }
+        public DateOnly FechaFinalizacion { get; set; }
         public int? IdEstado { get; set; }
 
         public virtual Estado? IdEstadoNavigation { get; set; }

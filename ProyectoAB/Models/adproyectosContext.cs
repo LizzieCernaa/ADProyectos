@@ -17,7 +17,7 @@ namespace ProyectoAB.Models
         }
 
         public virtual DbSet<Asignacione> Asignaciones { get; set; } = null!;
-        public virtual DbSet<Colaboradore> Colaboradores { get; set; } = null!;
+        public virtual DbSet<Colaborador> Colaboradores { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Estado> Estados { get; set; } = null!;
         public virtual DbSet<Proyecto> Proyectos { get; set; } = null!;
@@ -57,7 +57,7 @@ namespace ProyectoAB.Models
                     .HasConstraintName("asignaciones_id_tarea_fkey");
             });
 
-            modelBuilder.Entity<Colaboradore>(entity =>
+            modelBuilder.Entity<Colaborador>(entity =>
             {
                 entity.ToTable("colaboradores");
 
