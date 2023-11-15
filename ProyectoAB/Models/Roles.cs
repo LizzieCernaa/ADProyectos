@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProyectoAB.Models
 {
-    public partial class Role
+    public partial class Roles
     {
-        public Role()
+        public Roles()
         {
             RolesProyectos = new HashSet<RolesProyecto>();
         }
@@ -13,6 +14,7 @@ namespace ProyectoAB.Models
         public int Id { get; set; }
         public string? Nombre { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<RolesProyecto> RolesProyectos { get; set; }
     }
 }

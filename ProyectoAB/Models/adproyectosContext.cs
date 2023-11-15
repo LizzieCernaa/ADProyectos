@@ -16,12 +16,12 @@ namespace ProyectoAB.Models
         {
         }
 
-        public virtual DbSet<Asignacione> Asignaciones { get; set; } = null!;
+        public virtual DbSet<Asignacion> Asignaciones { get; set; } = null!;
         public virtual DbSet<Colaborador> Colaboradores { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Estado> Estados { get; set; } = null!;
         public virtual DbSet<Proyecto> Proyectos { get; set; } = null!;
-        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<Roles> Roles { get; set; } = null!;
         public virtual DbSet<RolesProyecto> RolesProyectos { get; set; } = null!;
         public virtual DbSet<Tarea> Tareas { get; set; } = null!;
 
@@ -36,24 +36,24 @@ namespace ProyectoAB.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Asignacione>(entity =>
+            modelBuilder.Entity<Asignacion>(entity =>
             {
                 entity.ToTable("asignaciones");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.IdColaborador).HasColumnName("id_colaborador");
+                entity.Property(e => e.Colaborador).HasColumnName("id_colaborador");
 
-                entity.Property(e => e.IdTarea).HasColumnName("id_tarea");
+                entity.Property(e => e.Tarea).HasColumnName("id_tarea");
 
-                entity.HasOne(d => d.IdColaboradorNavigation)
+                entity.HasOne(d => d.Colaborador)
                     .WithMany(p => p.Asignaciones)
-                    .HasForeignKey(d => d.IdColaborador)
+                    .HasForeignKey(d => d.Colaborador)
                     .HasConstraintName("asignaciones_id_colaborador_fkey");
 
-                entity.HasOne(d => d.IdTareaNavigation)
+                entity.HasOne(d => d.Tarea)
                     .WithMany(p => p.Asignaciones)
-                    .HasForeignKey(d => d.IdTarea)
+                    .HasForeignKey(d => d.Tarea)
                     .HasConstraintName("asignaciones_id_tarea_fkey");
             });
 
@@ -97,19 +97,19 @@ namespace ProyectoAB.Models
 
                 entity.Property(e => e.FechaInicio).HasColumnName("fecha_inicio");
 
-                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+                entity.Property(e => e.EstadoId).HasColumnName("id_estado");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(255)
                     .HasColumnName("nombre");
 
-                entity.HasOne(d => d.IdEstadoNavigation)
+                entity.HasOne(d => d.Estado)
                     .WithMany(p => p.Proyectos)
-                    .HasForeignKey(d => d.IdEstado)
+                    .HasForeignKey(d => d.EstadoId)
                     .HasConstraintName("proyectos_id_estado_fkey");
             });
 
-            modelBuilder.Entity<Role>(entity =>
+            modelBuilder.Entity<Roles>(entity =>
             {
                 entity.ToTable("roles");
 
@@ -126,25 +126,25 @@ namespace ProyectoAB.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.IdColaborador).HasColumnName("id_colaborador");
+                entity.Property(e => e.ColaboradorId).HasColumnName("id_colaborador");
 
-                entity.Property(e => e.IdProyecto).HasColumnName("id_proyecto");
+                entity.Property(e => e.ProyectoId).HasColumnName("id_proyecto");
 
-                entity.Property(e => e.IdRole).HasColumnName("id_role");
+                entity.Property(e => e.RoleId).HasColumnName("id_role");
 
-                entity.HasOne(d => d.IdColaboradorNavigation)
+                entity.HasOne(d => d.Colaborador)
                     .WithMany(p => p.RolesProyectos)
-                    .HasForeignKey(d => d.IdColaborador)
+                    .HasForeignKey(d => d.Colaborador)
                     .HasConstraintName("roles_proyecto_id_colaborador_fkey");
 
-                entity.HasOne(d => d.IdProyectoNavigation)
+                entity.HasOne(d => d.Proyecto)
                     .WithMany(p => p.RolesProyectos)
-                    .HasForeignKey(d => d.IdProyecto)
+                    .HasForeignKey(d => d.Proyecto)
                     .HasConstraintName("roles_proyecto_id_proyecto_fkey");
 
-                entity.HasOne(d => d.IdRoleNavigation)
+                entity.HasOne(d => d.Role)
                     .WithMany(p => p.RolesProyectos)
-                    .HasForeignKey(d => d.IdRole)
+                    .HasForeignKey(d => d.Role)
                     .HasConstraintName("roles_proyecto_id_role_fkey");
             });
 
@@ -158,22 +158,22 @@ namespace ProyectoAB.Models
 
                 entity.Property(e => e.FechaVencimiento).HasColumnName("fecha_vencimiento");
 
-                entity.Property(e => e.IdEstado).HasColumnName("id_estado");
+                entity.Property(e => e.EstadoId).HasColumnName("id_estado");
 
-                entity.Property(e => e.IdProyecto).HasColumnName("id_proyecto");
+                entity.Property(e => e.ProyectoId).HasColumnName("id_proyecto");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(255)
                     .HasColumnName("nombre");
 
-                entity.HasOne(d => d.IdEstadoNavigation)
+                entity.HasOne(d => d.Estado)
                     .WithMany(p => p.Tareas)
-                    .HasForeignKey(d => d.IdEstado)
+                    .HasForeignKey(d => d.EstadoId)
                     .HasConstraintName("tareas_id_estado_fkey");
 
-                entity.HasOne(d => d.IdProyectoNavigation)
+                entity.HasOne(d => d.Proyecto)
                     .WithMany(p => p.Tareas)
-                    .HasForeignKey(d => d.IdProyecto)
+                    .HasForeignKey(d => d.ProyectoId)
                     .HasConstraintName("tareas_id_proyecto_fkey");
             });
 

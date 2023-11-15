@@ -8,7 +8,7 @@ namespace ProyectoAB.Models
     {
         public Colaborador()
         {
-            Asignaciones = new HashSet<Asignacione>();
+            Asignaciones = new HashSet<Asignacion>();
             RolesProyectos = new HashSet<RolesProyecto>();
         }
 
@@ -18,7 +18,7 @@ namespace ProyectoAB.Models
         public string Correo { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Asignacione> Asignaciones { get; set; }
+        public virtual ICollection<Asignacion> Asignaciones { get; set; }
         [JsonIgnore]
         public virtual ICollection<RolesProyecto> RolesProyectos { get; set; }
     }
