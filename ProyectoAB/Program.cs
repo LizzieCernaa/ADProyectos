@@ -410,8 +410,7 @@ app.MapDelete("/asignacion/{id:int}", async (int id, OfficeDb db) =>
 
 });
 
-
-
+//app.UseCors();
 
 app.Run();
 
